@@ -1,0 +1,27 @@
+#!/bin/bash
+exec 2>> $logDir/backups/LogBackUpper/error/error.log
+
+echo "What is your deal? Where do you want to put your shit?"
+read logDir
+
+[ -d $logDir/backups/LogBackUpper ] || mkdir    $logDir/backups/LogBackUpper
+[ -d $logDir/backups/LogBackUpper/logs ] || mkdir    $logDir/backups/LogBackUpper/logs
+[ -d $logDir/backups/LogBackUpper/error ] || mkdir    $logDir/backups/LogBackUpper/error
+[ -d $logDir/backups/LogBackUpper/hashed ] || mkdir    $logDir/backups/LogBackUpper/hashed
+
+
+echo "Ran on $(date)" >> $logDir/backups/LogBackUpper/error/error.log
+echo "Hashed on $(date)" >> $logDir/backups/LogBackUpper/hashed/hashed_logs.txt
+
+echo "Provide the directory to be backed up and hash'ed:"
+read USERDIR
+
+echo "Reticulating splines..."
+
+sleep 3
+
+for file in $USERDIR/*.1*
+do
+                 cp $file $logDir/backups/LogBackUpper/logs/$(echo $file | cut -d/ -f4)-$(date -Iseconds)
+done
+~                 
